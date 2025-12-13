@@ -34,7 +34,14 @@ results = []
 for n in sizes:
     # Генерация данных
     data = [random.randint(1, n // 2) for _ in range(n)]
-    target = random.choice(data)
+    # target = random.choice(data)
+    target = -1
+    #интересно что пытаясь найти элемента, которого заведомо НЕТ в списке и множестве
+    #программа не выдает ошибку, программа проходит по целому списку и множеству и не находя
+    #в нем target заканчивает проверку. Множество справляется гораздо быстрее и время на поиск
+    #target особо не менялось, в то время как время у списка растет экспонианциально 
+    #ведь ему приходится прокручивать все имеющиеся элементы, даже если среди них есть дубликаты
+    #уже имеющихся
     
     # Измерение поиска в списке
     start = time.perf_counter()
@@ -63,3 +70,10 @@ with open('lab01_results.txt', 'w', encoding='utf-8') as f:
         f.write(f"{n:7d} | {t_list:12.6f} | {t_set:15.6f} | {speedup:9.1f}x\n")
 
 print("Результаты сохранены в lab01_results.txt")
+
+data = [random.randint(1, 100000) for _ in range(100000)]
+
+start = time.perf_counter()
+data_set = set(data)
+time_create = time.perf_counter() - start
+print(f"Время создания множества: {time_create:.6f}с")

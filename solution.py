@@ -135,27 +135,54 @@ def find_common_set(arr1, arr2):
     Используем встроенную операцию пересечения множеств
     """
     start = time.perf_counter()
+
     set1 = set(arr1)
     set2 = set(arr2)
+
     end = time.perf_counter()
     time_spent2 = end - start
+
     return list(set1 & set2), time_spent2
-border1 = "="*50
-border2 = "-"*50
-explanation = f"""В случае с наивным подходом мы сравниваем два массива
-                в каждом из которых по {n} случайных чисел, причем среди них со 100%
-                вероятностью будут дубликаты, потому что у нас число возможных 
-                комбинаций чисел {max_random_number} меньше чем длина массива. Алгоритм
-                пройдется по КАЖДОМУ элементу в ДВУХ массивах, ПОСМОТРИТ
-                есть ли этот элемент в списке common и только потом решит добавлять
-                его или нет. Это пример On^2 алгоритма. В случае же со 
-                множествами у нас только уникальные числа из двух массивов,
-                из которых мы уже собираем список. Нам не приходится постоянно возвращаться
-                чтобы проверить есть ли элемент уже в списке или его нет, не приходится
-                перепроверять дубликаты"""
 
 common, time_spent1 = find_common_naive(array1, array2)
 common_smart, time_spent2 = find_common_set(array1, array2)
+
+def drawing_results_method1(common, time_spent1):
+
+    """выводим на экран результаты первого подхода"""
+    
+    with open('results.txt', 'w', encoding='utf-8') as f:
+        f.write("ПОДХОД 1: НАИВНЫЙ (вложенные циклы)\n")
+        f.write(border2+"\n")
+        f.write(f"Время Выполнения: {time_spent1:.6f} секунд \n")
+        f.write(f"Найдено Общих элементов: {len(common)}"+"\n"*2)
+
+def drawing_results_method2(common, time_spent1):
+
+    """выводим на экран результаты второго подхода"""
+    
+    with open('results.txt', 'w', encoding='utf-8') as f:
+        f.write("ПОДХОД 2: МНОЖЕСТВА (сет интерсекшин)\n")
+        f.write(border2+"\n")
+        f.write(f"Время Выполнения: {time_spent2:.6f} секунд \n")
+        f.write(f"Найдено Общих элементов: {len(common_smart)}"+"\n"*2) 
+
+border1 = "="*50
+border2 = "-"*50
+border3 = "-"*9 #делаем красивые рамки для разделения абзацев
+
+explanation = f"""В случае с наивным подходом мы сравниваем два массива
+в каждом из которых по {n} случайных чисел, причем среди них со 100%
+вероятностью будут дубликаты, потому что у нас число возможных 
+комбинаций чисел {max_random_number} меньше чем длина массива. Алгоритм
+пройдется по КАЖДОМУ элементу в ДВУХ массивах, ПОСМОТРИТ
+есть ли этот элемент в списке common и только потом решит добавлять
+его или нет. Это пример On^2 алгоритма. В случае же со 
+множествами у нас только уникальные числа из двух массивов,
+из которых мы уже собираем список. Нам не приходится постоянно возвращаться
+чтобы проверить есть ли элемент уже в списке или его нет, не приходится
+перепроверять дубликаты"""
+
 with open('results.txt', 'w', encoding='utf-8') as f:
 
     f.write("\n"+border1+"\n")
@@ -166,19 +193,13 @@ with open('results.txt', 'w', encoding='utf-8') as f:
     f.write(f"Размер array2: {len(array2)} \n")
     f.write(f"Диапазон значений: 1-{max_random_number}"+"\n"*2)
 
-    f.write("ПОДХОД 1: НАИВНЫЙ (вложенные циклы)\n")
-    f.write(border2+"\n")
-    f.write(f"Время Выполнения: {time_spent1:.6f} секунд \n")
-    f.write(f"Найдено Общих элементов: {len(common)}"+"\n"*2)
-
-    f.write("ПОДХОД 2: МНОЖЕСТВА (сет интерсекшин)\n")
-    f.write(border2+"\n")
-    f.write(f"Время Выполнения: {time_spent2:.6f} секунд \n")
-    f.write(f"Найдено Общих элементов: {len(common_smart)}"+"\n"*2)    
+    drawing_results_method1(common, time_spent1)
+    drawing_results_method2(common_smart, time_spent2)
 
     f.write("СРАВНЕНИЕ \n")
-    f.write(border2/5+"\n")
+    f.write(border3+"\n")
     f.write(f"Ускорение: {time_spent1 / time_spent2}"+"\n"*2)
+
     f.write("ОБЪЯСНЕНИЕ РАЗНИЦЫ В ПРОИЗВОДИТЕЛЬНОСТИ:\n")
     f.write(explanation)
 

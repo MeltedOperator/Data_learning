@@ -36,75 +36,77 @@ print(f"Доминатное слагаемое 5n^2. При {n} элемент�
 print(f"Среднее слагаемое 100n. При {n} элементов время: {middle:.6f}с | шагов: {middle_step} (Конт. вопрос 2) |\n")
 print(f"Cвободное слагаемое 1000. При {n} элементов время: {freed:.6f}с | шагов: {last_step} (Конт. вопрос 2) |\n")
 print(f"РЕЗУЛЬТАТЫ всего шагов: {sum} | всего времени затрачено: {sum_t}")
+
 # Сохранение результатов в файл
 
-with open('answers.txt', 'a', encoding='utf-8') as f:
-    f.write("\n")
-    f.write("="*50 + "\n")
-    f.write(f"Доминатное слагаемое 5n^2. При {n} элементов время: {dominant:.6f}с | шагов: {step} (Конт. вопрос 2) |\n")
-    f.write(f"Среднее слагаемое 100n. При {n} элементов время: {middle:.6f}с | шагов: {middle_step} (Конт. вопрос 2) |\n")
-    f.write(f"Cвободное слагаемое 1000. При {n} элементов время: {freed:.6f}с | шагов: {last_step} (Конт. вопрос 2) |\n")
-    f.write(f"\nРЕЗУЛЬТАТЫ. Функция вида 5n^2 + 100n + 1000 | всего шагов: {sum} | всего времени затрачено: {sum_t:.6f}с \n")
-    f.write("="*50 + "\n")
+# with open('answers.txt', 'a', encoding='utf-8') as f:
+#     f.write("\n")
+    # f.write("="*50 + "\n")
+#     f.write(f"Доминатное слагаемое 5n^2. При {n} элементов время: {dominant:.6f}с | шагов: {step} (Конт. вопрос 2) |\n")
+#     f.write(f"Среднее слагаемое 100n. При {n} элементов время: {middle:.6f}с | шагов: {middle_step} (Конт. вопрос 2) |\n")
+#     f.write(f"Cвободное слагаемое 1000. При {n} элементов время: {freed:.6f}с | шагов: {last_step} (Конт. вопрос 2) |\n")
+#     f.write(f"\nРЕЗУЛЬТАТЫ. Функция вида 5n^2 + 100n + 1000 | всего шагов: {sum} | всего времени затрачено: {sum_t:.6f}с \n")
+#     f.write("="*50 + "\n")
 
+n = 10_000_000
+def listn(n):
+    start = time.perf_counter()
+    fn = [random.randint(1, n) for _ in range(n)]
+    target = random.choice(fn)
 
-# #Теоретический вопрос 3:
+    start = time.perf_counter()
+    found = target in fn
+    time_fn = time.perf_counter() - start
+    return time_fn
 
-# #Сравнение функций роста.
-# #Даны функции f(n) = n, g(n) = n^2 и h(n) = log(n)
-# #При n = 1_000_000 нужно вычислить приблизительное значение
-# #и расположить в порядке возрастания
+def logn(n):
+    start = time.perf_counter()
+    lgn = [random.randint(1, n) for _ in range(n)]
+    lgn.sort()
+    target = random.choice(lgn)
+    middle = n // 2
+    r_end = lgn[-1]
+    l_end = lgn[0]
 
-# n = 1_000_000
-# def listn(n):
-#     start = time.perf_counter()
-#     fn = [random.randint(1, n) for _ in range(n)]
-#     target = random.choice(fn)
-
-#     start = time.perf_counter()
-#     found = target in fn
-#     time_fn = time.perf_counter() - start
-#     return time_fn
-
-# def logn(n):
-#     start = time.perf_counter()
-#     lgn = [random.randint(1, n) for _ in range(n)]
-#     lgn.sort()
-#     target = random.choice(lgn)
-#     middle = n // 2
-#     r_end = lgn[-1]
-#     l_end = lgn[0]
-
-#     start = time.perf_counter()
-#     if target < middle:
-#         r_end = middle
-#         middle = (middle + l_end) // 2
-#     elif target > middle:
-#         l_end = middle
-#         middle = (middle + r_end) // 2
-#     found = target in lgn
-#     time_lgn = time.perf_counter() - start
-#     return time_lgn
+    start = time.perf_counter()
+    if target < middle:
+        r_end = middle
+        middle = (middle + l_end) // 2
+    elif target > middle:
+        l_end = middle
+        middle = (middle + r_end) // 2
+    found = target in lgn
+    time_lgn = time.perf_counter() - start
+    return time_lgn
     
-# def nsquared(n):
-#     start = time.perf_counter()
-#     n_n = [random.randint(1, n) for _ in range(n)]
-#     for i in range(n):
-#         for j in range(i + 1, n):
-#             if n_n[i] == n_n[j]:
-#                 time_n_squared = time.perf_counter() - start
-#                 return time_n_squared
+def nsquared(n):
+    start = time.perf_counter()
+    n_n = [random.randint(1, n) for _ in range(n)]
+    for i in range(n):
+        for j in range(i + 1, n):
+            if n_n[i] == n_n[j]:
+                time_n_squared = time.perf_counter() - start
+                return time_n_squared
 
 
-# listn_result = listn(n)
-# logn_result = logn(n)
-# n_squared = nsquared(n)
-# result1 = f"1) результат f(n) = n, при n = {n}: {listn_result:.6f}c|\n"
-# result2 = f"2) результат f(n) = log(n), при n = {n}: {logn_result:.6f}c|\n"
-# result3 = f"3) результат f(n) = n^2, при n = {n}: {n_squared:.6f}c|\n"
-# print(result1, result2, result3)
+listn_result = listn(n)
+logn_result = logn(n)
+n_squared = nsquared(n)
+result1 = f"Результат f(n) = n, при n = {n}: {listn_result:.6f}c|\n"
+result2 = f"Результат f(n) = log(n), при n = {n}: {logn_result:.6f}c|\n"
+result3 = f"Результат f(n) = n^2, при n = {n}: {n_squared:.6f}c|\n"
+print(result1, result2, result3)
 
 # with open('answers.txt', 'a', encoding='utf-8') as f:
+#     f.write("\n")
+#     f.write("="*50 + "\n")
 #     f.write(result1)
+#     f.write("Алгоритм находит выбранный элемент из списка со случайными числами ЛИНЕЙНО \n")
 #     f.write(result2)
+#     f.write("Алгоритм находит выбранный элемент из списка со случайными числами БИНАРНЫМ способом \n")
 #     f.write(result3)
+#     f.write("Алгоритм определяет есть ли в списке дубликаты НАИВНЫМ способом \n")
+#     f.write("="*50 + "\n")
+#     f.write("РЕЗУЛЬТАТЫ: из трех алгоритмов самым быстрым можно назвать n, а самым ")
+#     f.write("медленным n^2")
+

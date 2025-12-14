@@ -149,7 +149,7 @@ common_smart, time_spent2 = find_common_set(array1, array2)
 
 def drawing_results_method1(common, time_spent1):
 
-    """выводим на экран результаты первого подхода"""
+    """выводим в файл results.txt результаты первого подхода"""
     
     with open('results.txt', 'w', encoding='utf-8') as f:
         f.write("ПОДХОД 1: НАИВНЫЙ (вложенные циклы)\n")
@@ -159,7 +159,7 @@ def drawing_results_method1(common, time_spent1):
 
 def drawing_results_method2(common, time_spent1):
 
-    """выводим на экран результаты второго подхода"""
+    """выводим в файл results.txt результаты второго подхода"""
     
     with open('results.txt', 'w', encoding='utf-8') as f:
         f.write("ПОДХОД 2: МНОЖЕСТВА (сет интерсекшин)\n")

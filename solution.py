@@ -109,7 +109,13 @@ def nsquared(n):
 listn_result = listn(n)
 logn_result = logn(n)
 n_squared = nsquared(n)
+ramka = "="*50 + "\n"
 result1 = f"результат f(n) = n, при n = {n}: {listn_result:.6f}c|\n"
 result2 = f"результат f(n) = log(n), при n = {n}: {logn_result:.6f}c|\n"
 result3 = f"результат f(n) = n^2, при n = {n}: {n_squared:.6f}c|\n"
 print(result1, result2, result3)
+
+with open('answers.txt', 'a', encoding='utf-8') as f:
+    f.write(result1)
+    f.write(result2)
+    f.write(result3)

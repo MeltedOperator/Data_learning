@@ -64,6 +64,7 @@ import random
 #Даны функции f(n) = n, g(n) = n^2 и h(n) = log(n)
 #При n = 1_000_000 нужно вычислить приблизительное значение
 #и расположить в порядке возрастания
+
 n = 1_000_000
 def listn(n):
     start = time.perf_counter()
@@ -95,9 +96,20 @@ def logn(n):
     time_lgn = time.perf_counter() - start
     return time_lgn
     
+def nsquared(n):
+    start = time.perf_counter()
+    n_n = [random.randint(1, n) for _ in range(n)]
+    for i in range(n):
+        for j in range(i + 1, n):
+            if n_n[i] == n_n[j]:
+                time_n_squared = time.perf_counter() - start
+                return time_n_squared
+
 
 listn_result = listn(n)
 logn_result = logn(n)
+n_squared = nsquared(n)
 result1 = f"результат f(n) = n, при n = {n}: {listn_result:.6f}c|\n"
 result2 = f"результат f(n) = log(n), при n = {n}: {logn_result:.6f}c|\n"
-print(result1, result2)
+result3 = f"результат f(n) = n^2, при n = {n}: {n_squared:.6f}c|\n"
+print(result1, result2, result3)

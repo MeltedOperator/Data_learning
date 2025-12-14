@@ -1,4 +1,5 @@
 import time
+import random
 #Теоретический вопрос 1:
 #Почему же датасеты меняют инженерные решения? Почему алгоритм со 100
 #элементами может оказаться совершенно неэффективным со 100 000 элементов?
@@ -18,6 +19,7 @@ import time
 
 
 #Теоретический вопрос 2:
+
 #Что такое доминантный член, почему он так важен?
 #Доминантный член показывает насколько быстро меняется функция
 #в зависимости от числа элементов n, причем доминантный член
@@ -29,28 +31,73 @@ import time
 #степень. Поэтому при росте n он будет значительно больше чем 100n и особенно 1000
 #давайте проверим на практике: 
 
-n = 100
+# n = 100
 
-step = 0
-start = time.perf_counter()
+# step = 0
+# start = time.perf_counter()
 
-for i in range(5):
-    for j in range(n):
-        for o in range(n):
-            step += 1
+# for i in range(5):
+#     for j in range(n):
+#         for o in range(n):
+#             step += 1
 
-for i in range(100):
-    for j in range(n):
-        step += 1
+# for i in range(100):
+#     for j in range(n):
+#         step += 1
 
-step += 1000
+# step += 1000
 
-end = time.perf_counter()
-t_data = end - start
-print(f"при {n} элементов: {t_data:.6f}с | шагов: {step} |")
+# end = time.perf_counter()
+# t_data = end - start
+# print(f"при {n} элементов: {t_data:.6f}с | шагов: {step} |")
 
-# Сохранение результатов в файл
+# # Сохранение результатов в файл
 
-with open('solution.txt', 'a', encoding='utf-8') as f:
-    f.write(f"при {n} элементов: {t_data:.6f}с | шагов: {step} |\n")
+# with open('answers.txt', 'a', encoding='utf-8') as f:
+#     f.write("="*50 + "\n")
+#     f.write(f"при {n} элементов: {t_data:.6f}с | шагов: {step} (Конт. вопрос 2) |\n")
+
+
+#Теоретический вопрос 3:
+
+#Сравнение функций роста.
+#Даны функции f(n) = n, g(n) = n^2 и h(n) = log(n)
+#При n = 1_000_000 нужно вычислить приблизительное значение
+#и расположить в порядке возрастания
+n = 1_000_000
+def listn(n):
+    start = time.perf_counter()
+    fn = [random.randint(1, n) for _ in range(n)]
+    target = random.choice(fn)
+
+    start = time.perf_counter()
+    found = target in fn
+    time_fn = time.perf_counter() - start
+    return time_fn
+
+def logn(n):
+    start = time.perf_counter()
+    lgn = [random.randint(1, n) for _ in range(n)]
+    lgn.sort()
+    target = random.choice(lgn)
+    middle = n // 2
+    r_end = lgn[-1]
+    l_end = lgn[0]
+
+    start = time.perf_counter()
+    if target < middle:
+        r_end = middle
+        middle = (middle + l_end) // 2
+    elif target > middle:
+        l_end = middle
+        middle = (middle + r_end) // 2
+    found = target in lgn
+    time_lgn = time.perf_counter() - start
+    return time_lgn
     
+
+listn_result = listn(n)
+logn_result = logn(n)
+result1 = f"результат f(n) = n, при n = {n}: {listn_result:.6f}c|\n"
+result2 = f"результат f(n) = log(n), при n = {n}: {logn_result:.6f}c|\n"
+print(result1, result2)

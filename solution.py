@@ -29,7 +29,7 @@ import time
 #степень. Поэтому при росте n он будет значительно больше чем 100n и особенно 1000
 #давайте проверим на практике: 
 
-n = 10_000
+n = 100
 
 step = 0
 start = time.perf_counter()
@@ -44,6 +44,13 @@ for i in range(100):
         step += 1
 
 step += 1000
+
 end = time.perf_counter()
 t_data = end - start
-print(f"при {n:7d} элементов: {t_data:.6f}с | шагов: {step} |")
+print(f"при {n} элементов: {t_data:.6f}с | шагов: {step} |")
+
+# Сохранение результатов в файл
+
+with open('solution.txt', 'a', encoding='utf-8') as f:
+    f.write(f"при {n} элементов: {t_data:.6f}с | шагов: {step} |\n")
+    

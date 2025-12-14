@@ -134,21 +134,42 @@ def find_common_set(arr1, arr2):
     Подход с множествами: O(n + m)
     Используем встроенную операцию пересечения множеств
     """
+    start = time.perf_counter()
     set1 = set(arr1)
     set2 = set(arr2)
-    return list(set1 & set2)
+    end = time.perf_counter()
+    time_spent2 = end - start
+    return list(set1 & set2), time_spent2
 
 common, time_spent1 = find_common_naive(array1, array2)
-
+common_smart, time_spent2 = find_common_set(array1, array2)
 with open('results.txt', 'w', encoding='utf-8') as f:
+
     f.write("\n"+"="*50+"\n")
     f.write("ДОМАШНЕЕ ЗАДАНИЕ 1 - РЕЗУЛЬТАТЫ \n")
     f.write("="*50+"\n")
+
     f.write(f"\nРазмер array1: {len(array1)} \n")
     f.write(f"Размер array2: {len(array2)} \n")
     f.write(f"Диапазон значений: 1-{max_random_number}\n")
+
     f.write("\n")
+
     f.write("ПОДХОД 1: НАИВНЫЙ (вложенные циклы)\n")
     f.write("-"*50+"\n")
     f.write(f"Время Выполнения: {time_spent1:.6f} секунд \n")
     f.write(f"Найдено Общих элементов: {len(common)} \n")
+
+    f.write("\n")
+
+    f.write("ПОДХОД 2: МНОЖЕСТВА (сет интерсекшин)\n")
+    f.write("-"*50+"\n")
+    f.write(f"Время Выполнения: {time_spent2:.6f} секунд \n")
+    f.write(f"Найдено Общих элементов: {len(common_smart)} \n")    
+
+    f.write("\n")
+    f.write("СРАВНЕНИЕ \n")
+    f.write("-"*9+"\n")
+    f.write(f"Ускорение: {time_spent1 / time_spent2}")
+
+

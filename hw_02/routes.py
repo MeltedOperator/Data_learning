@@ -1,4 +1,5 @@
 import csv 
+
 def load_routes(filename="routes.csv") -> dict:
     """Возвращает {route_id: {"name": str, "stops": list}}"""
     with open(filename, newline="", encoding="utf-8") as f:
@@ -22,6 +23,13 @@ def find_route(routes: dict, route_id: int) -> dict | None:
 
 def build_stop_index(routes: dict) -> dict:
     """Индекс: {"Алматы": [1, 2, 5], "Астана": [1, 3], ...}"""
+    stop_index = {}
+    for route_id, route_data in routes.items():
+        for stop in route_data:
+            if stop not in stop_index:
+                stop_index[stop] = []
+            stop_index[stop].append(route_id)
+    return stop_index
     pass
 
 def find_routes_by_stop(stop_index: dict, stop_name: str) -> list:
@@ -36,4 +44,6 @@ with open("routes.csv", newline="", encoding="utf-8") as f:
         route_id = int(row["route_id"])
         cities = [city.strip() for city in row["stops"].split(",")]
         routes_dict[route_id] = cities
-print(find_route(routes_dict, 4))
+print(find_route(routes_dict, 13))
+stop_index = build_stop_index(routes_dict)
+print(stop_index)

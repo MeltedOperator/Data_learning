@@ -12,3 +12,15 @@ def reverse_string(string: str) -> str:
     return string
 
 print(reverse_string("olleh"))
+
+class QueueFromStacks:
+    def __init__(self):
+        self.stack_in = []
+        self.stack_out = []
+    
+    def enqueue(self, item):
+        pass
+    
+    def dequeue(self):
+        # Если stack_out пуст, перекладываем из stack_in
+        pass

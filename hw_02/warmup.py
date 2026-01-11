@@ -19,8 +19,22 @@ class QueueFromStacks:
         self.stack_out = []
     
     def enqueue(self, item):
+        self.stack_in.append(item)
         pass
     
     def dequeue(self):
         # Если stack_out пуст, перекладываем из stack_in
-        pass
+        if len(self.stack_out) == 0:
+            while self.stack_in:
+                self.stack_out.append(self.stack_in.pop())
+
+    def show(self):
+        print(self.stack_in)
+        print(self.stack_out)
+        
+queue = QueueFromStacks()
+queue.enqueue(1)
+queue.enqueue(3)
+queue.enqueue(5)
+queue.dequeue()
+queue.show()

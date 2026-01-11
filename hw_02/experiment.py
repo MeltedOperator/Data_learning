@@ -15,7 +15,7 @@ def find_duplicates(items):
     start = time.perf_counter()
 
     for item in items:
-        if item in seen:
+        if item in seen: 
             duplicates += 1
 
         else:
@@ -57,7 +57,7 @@ def find_dublicates_hard(items):
 
 with open("report.md", "w", encoding="utf-8") as f:
 
-    num_elements = [1_000, 10_000, 1_000]
+    num_elements = [1_000, 10_000, 100_000]
     
     for n in num_elements:
         items = [random.randint(1, 30_000) for _ in range(n)]

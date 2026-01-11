@@ -19,7 +19,7 @@ def find_duplicates(items):
     time_set = time.perf_counter() - start
     return duplicates, time_set
 
-def fund_dublicates_hard(items):
+def find_dublicates_hard(items):
     """
     Найти все дубли за O(n^2)
 
@@ -36,7 +36,20 @@ def fund_dublicates_hard(items):
     time_set = time.perf_counter() - start
     return dublicates, time_set
 
-num_elements = [1_000, 10_000, 100_000]
-for n in num_elements:
-    items = [random.randint(1, 30_000) for _ in range(n)]
-    print(find_duplicates(items), fund_dublicates_hard(items))
+# num_elements = [1_000, 10_000, 10_000]
+# for n in num_elements:
+#     items = [random.randint(1, 30_000) for _ in range(n)]
+#     print(f"{find_dublicates_hard(items)} | {find_duplicates(items)}")
+
+
+with open("report.md", "w", encoding="utf-8") as f:
+    num_elements = [1_000, 10_000, 1_000]
+    for n in num_elements:
+        items = [random.randint(1, 30_000) for _ in range(n)]
+
+        dublicates, velocity = find_duplicates(items)
+        dublicates_h, velocity_h = find_dublicates_hard(items)
+
+        acceleration = velocity_h - velocity
+
+        f.write(f"""N = {n} | O(n^2): {velocity_h:.6f}с. | O(n):{velocity:.6f}с. | Ускорение:{acceleration:.6f}с.\n""")

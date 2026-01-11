@@ -34,6 +34,7 @@ def build_stop_index(routes: dict) -> dict:
 
 def find_routes_by_stop(stop_index: dict, stop_name: str) -> list:
     """O(1) поиск. Пустой список если не найдено."""
+    return stop_index.get(stop_name, [])
     pass
 
 print(load_routes())
@@ -47,3 +48,6 @@ with open("routes.csv", newline="", encoding="utf-8") as f:
 print(find_route(routes_dict, 13))
 stop_index = build_stop_index(routes_dict)
 print(stop_index)
+
+specific_routes = find_routes_by_stop(stop_index, "Алматы")
+print(specific_routes)

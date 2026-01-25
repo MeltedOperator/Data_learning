@@ -1,8 +1,14 @@
-def heapify(arr, n, i):
-    """Просеивание вниз для max-heap."""
-    # Ваша реализация
-    pass
 
+def heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1; right = 2 * i + 2
+    if left < n and arr[left] > arr[largest]: largest = left
+    if right < n and arr[right] > arr[largest]: largest = right
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)
+
+    return left, right
 def heap_sort(arr):
     """Сортировка кучей (in-place, возвращает arr)."""
     # Ваша реализация

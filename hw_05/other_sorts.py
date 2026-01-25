@@ -18,6 +18,7 @@ def heap_sort(arr):
         heapify(arr, i, 0)
     return arr
 
+    
 def bubble_sort(arr):
     n = len(arr)
     for i in range(n):
@@ -62,3 +63,8 @@ sizes = [1000, 10000, 100000, 300000]
 for n in sizes:
     # Генерация данных
     arr = [random.randint(1, n // 2) for _ in range(n)]
+    time_taken = timeit.timeit(
+    stmt="heap_sort(arr.copy())",
+    globals={"heap_sort": heap_sort, "arr":arr},
+    number=n)
+    print(f"средняя время heap_sort: {time_taken}с")

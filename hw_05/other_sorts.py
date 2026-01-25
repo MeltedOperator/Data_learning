@@ -1,3 +1,6 @@
+import timeit
+import random
+
 def heapify(arr, n, i):
     largest = i
     left = 2 * i + 1; right = 2 * i + 2
@@ -54,3 +57,8 @@ def merge(left, right):
 def sorted(arr):
     arr.sorted()
     return arr
+
+sizes = [1000, 10000, 100000, 300000]
+for n in sizes:
+    # Генерация данных
+    arr = [random.randint(1, n // 2) for _ in range(n)]

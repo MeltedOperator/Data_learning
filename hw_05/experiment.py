@@ -7,6 +7,10 @@ timestamps = [t['created_time'] for t in tickets]
 
 def heapify(arr, n, i):
 
+    """строит heap благодаря определению большей и меньшей части,
+    после чего "просеивает" элементы. Сам по себе heap это бинарное дерево,
+    где сверху минимальные числа и снизу самые большие. Родитель важнее детей"""
+
     largest = i
     left = 2 * i + 1; right = 2 * i + 2 
     if left < n and arr[left] > arr[largest]: largest = left
@@ -32,6 +36,10 @@ def heap_sort(arr):
     return arr
 
 def sorted_sort(arr):
+
+    """Встроенная функция Timsort. Находит частично отсортированные
+    части и ставит их на свое место"""
+
     sorted(arr)
 # Сравните
 stats_heap = benchmark(lambda: heap_sort(timestamps.copy()), runs=3)

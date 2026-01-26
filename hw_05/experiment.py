@@ -30,5 +30,8 @@ def sorted_sort(arr):
 stats_heap = benchmark(lambda: heap_sort(timestamps.copy()), runs=3)
 stats_sorted = benchmark(lambda: sorted_sort(timestamps.copy()), runs=3)
 
-print(f"heap_sort: {stats_heap['mean']:.3f} сек")
-print(f"sorted():  {stats_sorted['mean']:.3f} сек")
+with open("report.md", "a", encoding="utf-8") as f:
+    f.write(f"heap_sort: {stats_heap['mean']:.3f} сек \n")
+    f.write(f"sorted():  {stats_sorted['mean']:.3f} сек \n")
+    acceleration = stats_heap["mean"] / stats_sorted["mean"]
+    f.write(f"{acceleration} во сколько раз sorted быстрее")

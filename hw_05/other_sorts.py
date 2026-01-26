@@ -55,42 +55,23 @@ def merge(left, right):
     result.extend(left[i:]); result.extend(right[j:])
     return result 
 
-def sorted1(arr):
+def sorted_sort(arr):
     sorted(arr)
      
 
 sizes = [1000,5000,10000,50000,100000,500000,1000000]
-for n in sizes:
-    # Генерация данных
-    arr = [random.randint(1, 10) for _ in range(n)]
-    time_taken_heap = timeit.timeit(
-    stmt="heap_sort(arr.copy())",
-    globals={"heap_sort": heap_sort, "arr":arr},
-    number=5)
-    print(f"средняя время heap_sort: {time_taken_heap}с")
-
-    if n < 10000:
-        time_taken_insert = timeit.timeit(
-        stmt="insertion_sort(arr.copy())",
-        globals={"insertion_sort": insertion_sort, "arr":arr},
+sorts = [(heap_sort, None),(bubble_sort,2500), 
+         (insertion_sort,2500), (merge_sort,None), (sorted_sort,None)]
+for sort, limit in sorts:
+    for n in sizes:
+        if limit is not None and n > limit:
+            continue
+        arr = [random.randint(1, 10) for _ in range(n)]
+        time_taken_heap = timeit.timeit(
+        stmt="sort(arr.copy())",
+        globals={"sort": sort, "arr":arr},
         number=5)
-        print(f"средняя время insertion_sort: {time_taken_insert}с")
+        print(f"для {n} элементов, {sort.__name__} занимает {time_taken_heap}с |")
 
-        time_taken_bubble = timeit.timeit(
-        stmt="bubble_sort(arr.copy())",
-        globals={"bubble_sort": bubble_sort, "arr":arr},
-        number=5)
-        print(f"средняя время bubble_sort: {time_taken_bubble}с")
 
-    time_taken_merge = timeit.timeit(
-    stmt="merge_sort(arr.copy())",
-    globals={"merge_sort": merge_sort, "arr":arr},
-    number=5)
-    print(f"средняя время merge_sort: {time_taken_merge}с")
-
-    time_taken_sorted = timeit.timeit(
-    stmt="sorted1(arr.copy())",
-    globals={"sorted1": sorted1, "arr":arr},
-    number=5)
-    print(f"средняя время sorted1: {time_taken_sorted}с")
 

@@ -1,7 +1,7 @@
 
 from tickets_helpers_lite import load_tickets, benchmark 
 
-tickets_file = r"c:\Users\tata2\Desktop\hw_05\hw_05\tickets_sample_100000.csv"
+tickets_file = r"c:\Users\tata2\Desktop\hw_05\hw_05\tickets_sample_1000000.csv"
 tickets = load_tickets(tickets_file)
 timestamps = [t['created_time'] for t in tickets]
 
@@ -38,6 +38,8 @@ stats_heap = benchmark(lambda: heap_sort(timestamps.copy()), runs=3)
 stats_sorted = benchmark(lambda: sorted_sort(timestamps.copy()), runs=3)
 
 with open("report.md", "a", encoding="utf-8") as f:
+
+    f.write("Для миллиона билетов!")
 
     f.write(f"heap_sort: {stats_heap['mean']:.3f} сек \n")
 

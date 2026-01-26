@@ -63,15 +63,17 @@ sizes = [1000,5000,10000,50000,100000,500000,1000000]
 sorts = [(heap_sort, None),(bubble_sort,2500), 
          (insertion_sort,2500), (merge_sort,None), (sorted_sort,None)]
 for sort, limit in sorts:
+    results = []
     for n in sizes:
         if limit is not None and n > limit:
-            continue
-        arr = [random.randint(1, 10) for _ in range(n)]
+            results.append("Слишком долго")
+        arr = [random.randint(1, 10) for _ in range(n)] 
         time_taken_heap = timeit.timeit(
         stmt="sort(arr.copy())",
         globals={"sort": sort, "arr":arr},
         number=5)
-        print(f"для {n} элементов, {sort.__name__} занимает {time_taken_heap}с |")
+        results.append(f"При {n}: {time_taken_heap:.6f}с. |")
+    print(f"{sort.__name__} |", * results)
 
 
 

@@ -1,6 +1,8 @@
-from tickets_helpers import load_tickets, benchmark # pyright: ignore[reportMissingImports]
 
-tickets = load_tickets("tickets_sample_1000000.csv")
+from tickets_helpers_lite import load_tickets, benchmark 
+
+tickets_file = r"c:\Users\tata2\Desktop\hw_05\hw_05\tickets_sample_100000.csv"
+tickets = load_tickets(tickets_file)
 timestamps = [t['created_time'] for t in tickets]
 
 def heapify(arr, n, i):
@@ -21,9 +23,12 @@ def heap_sort(arr):
         arr[0], arr[i] = arr[i], arr[0]
         heapify(arr, i, 0)
     return arr
+
+def sorted_sort(arr):
+    sorted(arr)
 # Сравните
 stats_heap = benchmark(lambda: heap_sort(timestamps.copy()), runs=3)
-stats_sorted = benchmark(lambda: sorted(timestamps.copy()), runs=3)
+stats_sorted = benchmark(lambda: sorted_sort(timestamps.copy()), runs=3)
 
 print(f"heap_sort: {stats_heap['mean']:.3f} сек")
 print(f"sorted():  {stats_sorted['mean']:.3f} сек")
